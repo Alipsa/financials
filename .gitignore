@@ -37,3 +37,7 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+/financials.iml
+/target/
+/.idea/
+/.RDataFiles/
