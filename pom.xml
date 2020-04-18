@@ -5,7 +5,7 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>se.nordnet.lending</groupId>
+  <groupId>se.alipsa</groupId>
   <artifactId>financials</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
@@ -48,6 +48,13 @@
       <groupId>org.renjin</groupId>
       <artifactId>hamcrest</artifactId>
       <version>${renjin.version}</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.renjin.cran</groupId>
+      <artifactId>testthat</artifactId>
+      <version>2.1.1-b2</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -113,9 +120,10 @@
       <plugin>
         <groupId>se.alipsa</groupId>
         <artifactId>renjin-hamcrest-maven-plugin</artifactId>
-        <version>1.2</version>
+        <version>1.3-SNAPSHOT</version>
         <configuration>
           <testFailureIgnore>true</testFailureIgnore>
+          <testSourceDirectory>${project.basedir}/tests</testSourceDirectory>
         </configuration>
         <executions>
           <execution>
@@ -151,7 +159,7 @@
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
             <version>1.7.27</version>
-          </dependency>
+          </dependency>         
         </dependencies>
       </plugin>
     </plugins>

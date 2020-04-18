@@ -1,5 +1,5 @@
 library('hamcrest')
-library('se.nordnet.lending:financials')
+library('se.alipsa:financials')
 
 delta <- 1e-9
 
