@@ -39,8 +39,8 @@ cashFlow <- function(loanAmount, interestRate, tenureMonths, amortizationFreeMon
     } else {
       costOfCredit <- monthlyAnnuity
     }
-    cacheFlow <- costOfCredit + invoiceFee
-    p <- c(p, cacheFlow)
+    cashFlow <- costOfCredit + invoiceFee
+    p <- c(p, cashFlow)
   }
   p
 }
@@ -59,7 +59,7 @@ paymentPlan <- function(loanAmount, interestRate, tenureMonths, amortizationFree
     amortization = numeric(),
     invoiceFee = numeric(),
     outgoingBalance = numeric(),
-    cacheFlow = numeric()
+    cashFlow = numeric()
   )
   interestCostAmFreePeriod <- loanAmount * interestRate / 12
   monthlyAnnuity <- monthlyAnnuityAmount(loanAmount, interestRate, tenureMonths, amortizationFreeMonths )
@@ -70,7 +70,7 @@ paymentPlan <- function(loanAmount, interestRate, tenureMonths, amortizationFree
   p$amortization <- 0.0
   p$invoiceFee <- 0.0
   p$outgoingBalance <- loanAmount
-  p$cacheFlow <- loanAmount * -1.0
+  p$cashFlow <- loanAmount * -1.0
 
   paymentPlans <- rbind(paymentPlans, p)
   prevOB <- p$outgoingBalance
@@ -86,12 +86,19 @@ paymentPlan <- function(loanAmount, interestRate, tenureMonths, amortizationFree
     p$amortization <- p$costOfCredit - p$interestAmt
     p$invoiceFee <- invoiceFee
     p$outgoingBalance <- prevOB - p$amortization
-    p$cacheFlow <- p$costOfCredit + p$invoiceFee
+    p$cashFlow <- p$costOfCredit + p$invoiceFee
     paymentPlans <- rbind(paymentPlans, p)
     prevOB <- p$outgoingBalance
   }
   paymentPlans
 }
+
+totalPaymentAmount <- function(loanAmount, interestRate, tenureMonths, amortizationFreeMonths = 0, invoiceFee = 0) {
+  pp <- paymentPlan(loanAmount, interestRate, tenureMonths, amortizationFreeMonths, invoiceFee)
+  sum(pp$costOfCredit) + sum(pp$invoiceFee)
+}
+
+
 # @param monthlyIrr the MONTHLY internal rate of return (monthly irr)
 # @return the annual percentage rate (effektiv ränta)
 apr <- function(monthlyIrr) {
