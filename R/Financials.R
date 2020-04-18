@@ -77,7 +77,7 @@ paymentPlan <- function(loanAmount, interestRate, tenureMonths, amortizationFree
   for (month in 2:(tenureMonths + 1)) {
     p <- list()
     p$month <- month - 1
-    if (amFreeMonths >= month) {
+    if (amortizationFreeMonths >= month) {
       p$costOfCredit <- interestCostAmFreePeriod
     } else {
       p$costOfCredit <- monthlyAnnuity
