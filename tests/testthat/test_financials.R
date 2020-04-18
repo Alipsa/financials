@@ -7,7 +7,7 @@ test_that("Payment plan calculation works", {
   interest <- 0.0677
   invoiceFee <- 30
 
-  ppdf <- paymentPlan(loanAmt, tenureMonths, amortizationFreeMonths, interest, invoiceFee)
+  ppdf <- paymentPlan(loanAmt, interest, tenureMonths, amortizationFreeMonths, invoiceFee)
   expect_equal(nrow(ppdf), tenureMonths + 1)
 
   expect_equal(ppdf$outgoingBalance[1], loanAmt)
