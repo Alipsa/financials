@@ -1,6 +1,8 @@
 # The NAMESPACE file is used to explicitly define which functions should be imported into the package’s namespace and
 # which functions the package exposes (i.e. exports) to other packages
 # see http://docs.renjin.org/en/latest/writing-renjin-extensions.html for details about the syntax
+
+# Financials
 export(pmt)
 export(apr)
 export(monthlyAnnuityAmount)
@@ -9,3 +11,6 @@ export(totalPaymentAmount)
 export(cashFlow)
 export(npv)
 export(irr)
+
+# Lending KPI's
+export(applicationApprovalAmountRate)
