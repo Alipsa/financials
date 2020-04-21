@@ -24,6 +24,27 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
 
+  <url>https://github.com/Alipsa/financials</url>
+  <licenses>
+    <license>
+      <name>MIT</name>
+      <url>https://github.com/Alipsa/financials/blob/master/LICENSE</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <name>Per Nyfelt</name>
+      <email>per.nyfelt@alipsa.se</email>
+      <organization>Alipsa HB</organization>
+      <organizationUrl>http://www.alipsa.se</organizationUrl>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:https://github.com/Alipsa/financials.git</connection>
+    <developerConnection>scm:git:https://github.com/Alipsa/financials.git</developerConnection>
+    <url>https://github.com/Alipsa/financials/tree/master</url>
+  </scm>
+
   <dependencies>
     <dependency>
       <groupId>org.renjin</groupId>
@@ -121,18 +142,30 @@
       </plugin>
       <plugin>
         <groupId>se.alipsa</groupId>
-        <artifactId>renjin-hamcrest-maven-plugin</artifactId>
+        <artifactId>renjin-test-maven-plugin</artifactId>
         <version>1.3-SNAPSHOT</version>
-        <configuration>
-          <testFailureIgnore>true</testFailureIgnore>
-          <testSourceDirectory>${project.basedir}/tests</testSourceDirectory>
-        </configuration>
         <executions>
           <execution>
+            <phase>test</phase>
+            <id>testthat</id>
+            <goals>
+              <goal>testR</goal>
+            </goals>
+            <configuration>
+              <testFailureIgnore>true</testFailureIgnore>
+              <testSourceDirectory>${project.basedir}/tests</testSourceDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>hamcrest</id>
             <phase>test</phase>
             <goals>
               <goal>testR</goal>
             </goals>
+            <configuration>
+              <testFailureIgnore>true</testFailureIgnore>
+              <testSourceDirectory>${project.basedir}/src/test/R</testSourceDirectory>
+            </configuration>
           </execution>
         </executions>
         <dependencies>
@@ -148,21 +181,52 @@
             </exclusions>
           </dependency>
           <dependency>
-            <groupId>org.renjin</groupId>
-            <artifactId>hamcrest</artifactId>
-            <version>${renjin.version}</version>
-          </dependency>
-          <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.27</version>
+            <version>1.7.30</version>
           </dependency>
           <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
-            <version>1.7.27</version>
+            <version>1.7.30</version>
           </dependency>         
         </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>3.0.0-M4</version>
+        <configuration>
+          <title>R Tests Report</title>
+          <outputName>test-report</outputName>
+          <reportsDirectories>${project.build.directory}/renjin-test-reports</reportsDirectories>
+          <linkXRef>false</linkXRef>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>test</phase>
+            <goals>
+              <goal>report-only</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- the site plugin will create formatting stuff e.g. css etc. -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.9.0</version>
+        <configuration>
+          <generateReports>false</generateReports>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>test</phase>
+            <goals>
+              <goal>site</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

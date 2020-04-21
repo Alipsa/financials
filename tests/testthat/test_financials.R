@@ -38,7 +38,7 @@ test_that("Payment plan calculation works", {
   expect_equal(0.0830, ammualPercentage, tolerance=0.0001);
 })
 
-test_that("Effective interest, total payment, and montly payment works", {
+test_that("Effective interest, total payment, and montly payment", {
   loanAmt <- 263429
   tenureMonths <- 15 * 12
   amortizationFreeMonths <- 12
