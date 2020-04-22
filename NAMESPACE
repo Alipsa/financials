@@ -3,6 +3,7 @@
 # see http://docs.renjin.org/en/latest/writing-renjin-extensions.html for details about the syntax
 
 # Financials
+import(stats)
 export(pmt)
 export(apr)
 export(monthlyAnnuityAmount)

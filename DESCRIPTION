@@ -12,7 +12,8 @@ License: MIT + file LICENSE
 URL: https://github.com/Alipsa/financials
 BugReports: https://github.com/Alipsa/financials/issues
 Imports:
-    methods
+    methods,
+    stats
 Suggests: 
     testthat,
     knitr,
