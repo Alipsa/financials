@@ -108,10 +108,26 @@
       <name>bedatadriven public repo</name>
       <url>https://nexus.bedatadriven.com/content/groups/public/</url>
     </pluginRepository>
+    <pluginRepository>
+      <id>maven-snapshots</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      <layout>default</layout>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </pluginRepository>
   </pluginRepositories>
 
   <build>
     <testSourceDirectory>${project.basedir}/renjin/test/java</testSourceDirectory>
+    <testResources>
+      <testResource>
+        <directory>${project.basedir}/renjin/test/resources</directory>
+      </testResource>
+    </testResources>
     <plugins>
       <plugin>
         <groupId>org.renjin</groupId>
