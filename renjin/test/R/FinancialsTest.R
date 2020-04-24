@@ -1,6 +1,10 @@
 library('hamcrest')
 library('financials')
 
+# To run in GNU.R:
+# install.packages("devtools")
+#devtools::install_github("bedatadriven/hamcrest")
+
 delta <- 1e-9
 
 test.irrAndApr <- function() {
