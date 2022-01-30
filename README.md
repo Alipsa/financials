@@ -15,6 +15,7 @@ To use it add the following dependency to your pom
 
 ### Payment
 `pmt <- function(interestRate, nper, pv, fv = 0, type = 0)`
+
 Equivalent to Excel/Calc's PMT(interest_rate, number_payments, PV, FV, Type)
 function, which calculates the payments for a loan or the future value of an investment
 #### Parameters
@@ -95,7 +96,7 @@ cf <- cashFlow(
 ```
 
 ### Payment Plan
-_paymentPlan <- function(loanAmount, interestRate, tenureMonths, amortizationFreeMonths = 0, invoiceFee = 0)_
+`paymentPlan <- function(loanAmount, interestRate, tenureMonths, amortizationFreeMonths = 0, invoiceFee = 0)`
 
 #### Parameters
 - _loanAmount_ the total loan amount including capitalized fees (e.g. startup fee)
@@ -175,22 +176,29 @@ print(totalAmt)
 
 ### Internal Rate of Return
 `irr <- function(cf, precision = 1e-6)`
+
 #### Parameters
 - _cf_ a vector of the cash flow (see cashflow function)
+- 
 #### Value
 A double containing the internal return rate
+
 #### Example
 Given the cache flow above
+
 ```r
 internalReturn <- irr(ppdf$cashFlow)
 print(internalReturn)
 ```
+
 ```
 [1] 0.00291665871251
 ```
 
 ### Annual Percentage Rate (a.k.a. effective interest)
+
 `apr <- function(monthlyIrr)`
+
 #### Parameters
 - _monthlyIrr_ the MONTHLY internal rate of return (monthly irr)
 
@@ -207,6 +215,7 @@ print(annualPercentage)
 ```
 
 ### Net present value
+
 `npv <- function(i, cf, t=seq(along=cf))`
 
 Net present value (NPV) is the difference between the present value
