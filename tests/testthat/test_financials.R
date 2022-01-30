@@ -34,7 +34,7 @@ test_that("Payment plan calculation works", {
   internalReturn <- irr(ppdf$cashFlow);
   expect_equal(0.006667407, internalReturn, tolerance=0.0000001);
 
-  ammualPercentage <- apr(internalReturn);
+  ammualPercentage <- apr(internalReturn)
   expect_equal(0.0830, ammualPercentage, tolerance=0.0001);
 })
 

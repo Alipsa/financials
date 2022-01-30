@@ -11,7 +11,7 @@ pmt <- function(interestRate, nper, pv, fv = 0, type = 0) {
   -interestRate * (pv * ((1 + interestRate)^ nper) + fv) / ((1 + interestRate * type) * (((1 + interestRate)^ nper) - 1))
 }
 
-# the monthyl annuity amount i.e. the amortization and interest amount each payment period (month)
+# the monthly annuity amount i.e. the amortization and interest amount each payment period (month)
 # @param loanAmount the total loan amount including capitalized fees (e.g. startup fee)
 # @param interestRate the annual nominal interest
 # @param tenureMonths the tenure of the loan in number of months
