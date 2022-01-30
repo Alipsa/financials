@@ -16,7 +16,7 @@ public class FinancialsTest {
    @Test
    public void testFinancials() throws ScriptException {
       RenjinScriptEngine engine = new RenjinScriptEngineFactory().getScriptEngine();
-      engine.eval("library(financials)");
+      engine.eval("library('se.alipsa:financials')");
       engine.put("loanAmount", 75000);
       engine.put("interestRate", 0.023);
       engine.put("tenureMonths", 24);

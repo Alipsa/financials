@@ -5,9 +5,7 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <!-- Must use the org.renjin.cran groupname to make library(financials) 
-  work like GNU-R -->
-  <groupId>org.renjin.cran</groupId>
+  <groupId>se.alipsa</groupId>
   <artifactId>financials</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
@@ -56,13 +54,13 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.7.27</version>
+      <version>1.7.35</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
-      <version>1.7.27</version>
+      <version>1.7.35</version>
       <scope>provided</scope>
     </dependency>
 
@@ -84,7 +82,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.13</version>
+      <version>4.13.2</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -130,6 +128,41 @@
     </testResources>
     <plugins>
       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>2.9.0</version>
+        <configuration>
+          <rulesUri>file://${basedir}/version-plugin-rules.xml</rulesUri>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <id>enforce-releases-maven-java</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <version>[3.5.2,)</version>
+                  <level>ERROR</level>
+                  <message>Please use maven version 3.5.2 or higher</message>
+                </requireMavenVersion>
+                <requireJavaVersion>
+                  <version>1.8.0</version>
+                  <level>ERROR</level>
+                  <message>Please use Java 8</message>
+                </requireJavaVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.renjin</groupId>
         <artifactId>renjin-maven-plugin</artifactId>
         <version>${renjin.version}</version>
@@ -150,24 +183,24 @@
           <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.27</version>
+            <version>1.7.35</version>
           </dependency>
           <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.27</version>
+            <version>1.7.35</version>
           </dependency>
           <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
-            <version>1.7.27</version>
+            <version>1.7.35</version>
           </dependency>
         </dependencies>
       </plugin>
       <plugin>
         <groupId>se.alipsa</groupId>
         <artifactId>renjin-test-maven-plugin</artifactId>
-        <version>1.3.1</version>
+        <version>1.3.6</version>
         <executions>
           <execution>
             <phase>test</phase>
@@ -176,7 +209,7 @@
               <goal>testR</goal>
             </goals>
             <configuration>
-              <testFailureIgnore>true</testFailureIgnore>
+              <testFailureIgnore>false</testFailureIgnore>
               <testSourceDirectory>${project.basedir}/tests</testSourceDirectory>
             </configuration>
           </execution>
@@ -207,12 +240,12 @@
           <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.30</version>
+            <version>1.7.35</version>
           </dependency>
           <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
-            <version>1.7.30</version>
+            <version>1.7.35</version>
           </dependency>         
         </dependencies>
       </plugin>
@@ -239,7 +272,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
-        <version>3.9.0</version>
+        <version>3.10.0</version>
         <configuration>
           <generateReports>false</generateReports>
         </configuration>
@@ -254,11 +287,49 @@
       </plugin>
     </plugins>
   </build>
-  <!-- TODO: uncomment this and add the real url if you have a repository to deploy to -->
-  <!--distributionManagement>
+  <distributionManagement>
     <snapshotRepository>
-      <id>nexus-snapshots</id>
-      <url>http://some.server:8081/nexus/content/repositories/snapshots/</url>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
-  </distributionManagement-->
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
+  <profiles>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <!-- See https://central.sonatype.org/pages/apache-maven.html for details -->
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <version>1.6.8</version>
+            <extensions>true</extensions>
+            <configuration>
+              <serverId>ossrh</serverId>
+              <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+              <autoReleaseAfterClose>true</autoReleaseAfterClose>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

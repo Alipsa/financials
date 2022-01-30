@@ -1,5 +1,5 @@
 library('hamcrest')
-library('financials')
+library('se.alipsa:financials')
 
 # To run in GNU.R:
 # install.packages("devtools")

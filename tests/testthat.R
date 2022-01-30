@@ -1,5 +1,5 @@
 library(testthat)
-library(financials)
+library("se.alipsa:financials")
 
 
 test_check("financials")
