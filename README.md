@@ -56,7 +56,7 @@ Calculate the monthly annuity amount i.e. the amortization and interest amount e
 - _type_ - when payment is made: beginning of period is 1; end is 0. Default is 0
 
 #### Value
-_returns__the monthly annuity amount
+_returns_ the monthly annuity amount
 
 #### Example
 Assuming the following:
@@ -181,7 +181,7 @@ print(totalAmt)
 - _cf_ a vector of the cash flow (see cashflow function)
 - 
 #### Value
-A double containing the internal return rate
+_returns_ a double containing the internal return rate
 
 #### Example
 Given the cache flow above
@@ -226,6 +226,9 @@ This function produces the same results as Excel does which differs from package
 - _i_ interest rate
 - _cf_ cache flow e.g. the cashFlow vector of the payment plan
 - _t_ time series (optional)
+
+#### Value
+_Returns_ a double with the net present value
 
 #### Examples
 ```r
