@@ -107,6 +107,7 @@ apr <- function(monthlyIrr) {
 
 # Net present value (NPV) is the difference between the present value 
 # of cash inflows and the present value of cash outflows over a period of time
+# TODO: this works in irr calculation and matches Excel correctly but the results differ from e.g. the FinCal package
 npv <- function(i, cf, t=seq(along=cf)) sum(cf/(1+i)^t)
 
 # Computes the internal rate of return

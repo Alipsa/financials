@@ -205,3 +205,23 @@ print(annualPercentage)
 ```
 [1] 0.03556685438873
 ```
+
+### Net present value
+`npv <- function(i, cf, t=seq(along=cf))`
+
+Net present value (NPV) is the difference between the present value
+of cash inflows and the present value of cash outflows over a period of time.
+This function produces the same results as Excel does which differs from packages such as FinCal.
+
+#### Parameters
+- _i_ interest rate
+- _cf_ cache flow e.g. the cashFlow vector of the payment plan
+- _t_ time series (optional)
+
+#### Examples
+```r
+print(npv(cf = c(-123400, 36200, 54800, 48100), i = 0.035))
+```
+```
+[1] 5908.865636076123
+```
