@@ -179,7 +179,8 @@ print(totalAmt)
 
 #### Parameters
 - _cf_ a vector of the cash flow (see cashflow function)
-- 
+- _precision_ The desired accuracy to calculate the irr with (optional, default 1e-6) precision is used in the 
+`uniroot` function and is assigned to the `tol` parameter of uniroot.
 #### Value
 _returns_ a double containing the internal return rate
 
